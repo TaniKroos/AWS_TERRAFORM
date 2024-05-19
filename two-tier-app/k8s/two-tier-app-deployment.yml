@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: two-tier-app-deployment #metadata for deps
+  labels:
+    app: two-tier-app
+
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      name: two-tier-app
+  template:
+    metadata: #metadata for pod
+      labels:
+        app: two-tier-app
+    spec:
+      containers:
+        - name: two-tier-app-pod
+          image: kroos31/flaskapp:latest
+          env:
+            - name: MYSQL_HOST
+              value: "mysql"  # cluster ip
+            - name: MYSQL_PASSWORD
+              value: "admin"
+            - name: MYSQL_USER
+              value: "admin"
+            - name: MYSQL_DB
+              value: "myDb" 
+          ports:
+            - containerPort: 5000
+          imagePullPolicy: Always
