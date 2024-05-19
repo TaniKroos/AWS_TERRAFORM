@@ -20,7 +20,7 @@ spec:
           image: kroos31/flaskapp:latest
           env:
             - name: MYSQL_HOST
-              value: "mysql"  # cluster ip
+              value: "mysql"  # service ip for mysql
             - name: MYSQL_PASSWORD
               value: "admin"
             - name: MYSQL_USER
